@@ -11,6 +11,9 @@ test('store person, update, select all, select by id person and delete it', asyn
       id: createdPerson.id,
     };
     expect(createdPerson).toStrictEqual(expectedPerson);
+    const all = await testService.selectAll();
+
+    expect(all).toStrictEqual([expectedPerson]);
   } catch (error) {
     console.error(error);
     await Utils.end(dBHandler.getReadPool());

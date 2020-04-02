@@ -1,37 +1,31 @@
 import { BaseService, ServiceModel, ServiceSimpleModel } from 'simple-api-ts';
-
+import { testDAO } from '../dAO/dAO';
 export default class TestService extends BaseService {
   protected element = 'tests';
 
   public async selectElementById(id: string): Promise<ServiceModel> {
-    return { id };
-  }
-
-  public async selectElementBySimpleModel(
-    content: ServiceSimpleModel
-  ): Promise<ServiceModel> {
-    return { id: '', ...content };
+    return testDAO.selectById(id);
   }
 
   public async selectAllElements(): Promise<Array<ServiceModel>> {
-    return [];
+    return testDAO.selectAll();
   }
 
   public async storeElement(
     content: ServiceSimpleModel
   ): Promise<ServiceModel> {
-    return { id: '', ...content };
+    return testDAO.store(content);
   }
 
   public async updateElement(
     id: string,
     content: ServiceSimpleModel
   ): Promise<ServiceModel> {
-    return { id: '', ...content };
+    return testDAO.update(id, content);
   }
 
   public async deleteElement(id: string): Promise<boolean> {
-    return id !== undefined;
+    return testDAO.delete(id);
   }
 
   public selectById(id: string): Promise<ServiceModel> {
