@@ -1,0 +1,36 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "dist/source/server.js",
+  "license": "MIT",
+  "scripts": {
+    "tsc": "tsc",
+    "prestart": "tsc",
+    "start": "node dist/source/server.js",
+    "dev": "nodemon source/server.ts",
+    "dev:debug": "nodemon --inspect source/server.ts",
+    "build": "sucrase ./source -d ./dist --transforms typescript,imports",
+    "test": "jest --passWithNoTests --ci --verbose --forceExit --detectOpenHandles",
+    "integration": "jest -i -c integration.config.json --passWithNoTests  --ci --verbose --forceExit --detectOpenHandles"
+  },
+  "dependencies": {
+    "simple-api-ts": "0.5.12"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.8",
+    "@typescript-eslint/eslint-plugin": "^2.26.0",
+    "@typescript-eslint/parser": "^2.26.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-filenames": "1.3.2",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "25.2.4",
+    "nodemon": "^2.0.2",
+    "prettier": "^2.0.2",
+    "sucrase": "^3.13.0",
+    "ts-jest": "^25.3.0",
+    "typescript": "^3.8.3"
+  }
+}
