@@ -1,6 +1,12 @@
 import { Utils } from 'simple-api-ts';
 import dBHandler from '../../source/database/dBHandler';
-import { testService } from '../../source/service/service';
+import TestService from '../../source/service/testService';
+import TestDAO from '../../source/dAO/testDAO';
+
+const testService = new TestService(
+  dBHandler.getEventHandler(),
+  new TestDAO(dBHandler.getReadPool())
+);
 
 test('store person, update, select all, select by id person and delete it', async (done) => {
   try {

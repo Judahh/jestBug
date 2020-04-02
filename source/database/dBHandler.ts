@@ -2,6 +2,8 @@ import { Handler } from 'flexiblepersistence';
 import database from './database';
 import eventDatabase from './eventDatabase';
 import { DatabaseHandler, Utils, Pool, ServiceAdapter } from 'simple-api-ts';
+import TestService from '../service/testService';
+import TestDAO from '../dAO/testDAO';
 
 // TODO: ADD: Services
 const postgres = new Pool(database);
@@ -18,6 +20,10 @@ class DBHandler extends DatabaseHandler {
 
   public async migrate(): Promise<boolean> {
     try {
+      const testService = new TestService(
+        this.getEventHandler(),
+        new TestDAO(this.getReadPool())
+      );
       const events = await this.eventHandler.readArray('events', {});
       await Utils.dropTables(this.getReadPool());
       await Utils.init(this.getReadPool());
@@ -40,6 +46,10 @@ class DBHandler extends DatabaseHandler {
             await service[operation](event.selection._id);
           }
         }
+      }
+      const all = await testService.selectAll();
+      if (!all || all.length < 1) {
+        testService.store({});
       }
     } catch (error) {
       return new Promise((resolve, reject) => reject(error));
